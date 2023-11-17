@@ -6,7 +6,7 @@
 /*   By: nireher- <nireher-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 05:04:09 by nireher-          #+#    #+#             */
-/*   Updated: 2023/11/17 20:24:09 by nireher-         ###   ########.fr       */
+/*   Updated: 2023/11/17 21:14:49 by nireher-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_next_line(int fd)
 		return NULL;
 	else
 	{
-		nbytes = read(fd, buf, sizeof(buf));
+		nbytes = read(fd, buf, sizeof(buf) - 1);
 	}
 	buf[nbytes] = '\0';
 	return (buf);
