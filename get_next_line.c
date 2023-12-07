@@ -3,28 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nireher- <nireher-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: nireher <nireher-@student.42madrid.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 05:04:09 by nireher-          #+#    #+#             */
-/*   Updated: 2023/11/17 21:14:49 by nireher-         ###   ########.fr       */
+/*   Updated: 2023/12/07 23:29:43 by nireher          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+char	*ft_read_and_pass(int fd, char *line)
 {
-	static char buf[100];
-	ssize_t		nbytes;
+	char			*buf;
+	int				nbytes;
 
-	if (fd == -1 || nbytes == 0)
-		return NULL;
-	else
+	buf = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buf)
+		return (NULL);
+	nbytes = read(fd, buf, BUFFER_SIZE + 1);
+	if (nbytes == 0)
 	{
-		nbytes = read(fd, buf, sizeof(buf) - 1);
+		free(buf);
+		return (NULL);
 	}
 	buf[nbytes] = '\0';
-	return (buf);
+	line = ft_strjoin(line, buf);
+	if (!line)
+		return (NULL);
+	if (ft_strchr(line, '\n'))
+		return (line);
+	else
+	{
+		while (!(ft_strchr(line, '\n')))
+		{
+			line = ft_read_and_pass(fd, line);
+		}
+	}
+	free(buf);
+	return (line);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*saved;
+	char 		*line;
+
+	if (fd == -1 || BUFFER_SIZE <= 0)
+		return NULL;
+	line = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!line)
+		return (NULL);
+	saved = ft_read_and_pass(fd, line);
+	return (saved);
 }
 
 int	main(void)
@@ -32,6 +62,8 @@ int	main(void)
 	int	fd;
 
 	fd = open("/Users/nireher-/get_next_line/miau.txt", O_RDONLY);
-	printf("line is %s\nand file descriptor is %d", get_next_line(fd), fd);
+	printf("%s", get_next_line(fd));
+
+	close(fd);
 	return (0);
 }
