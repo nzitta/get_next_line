@@ -6,7 +6,7 @@
 /*   By: nireher <nireher-@student.42madrid.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 05:00:53 by nireher-          #+#    #+#             */
-/*   Updated: 2023/12/07 23:26:50 by nireher          ###   ########.fr       */
+/*   Updated: 2023/12/11 01:22:37 by nireher          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_read_and_pass(int fd, char *line);
+char	*ft_read_and_pass(int fd);
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 

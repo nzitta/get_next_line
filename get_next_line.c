@@ -6,13 +6,13 @@
 /*   By: nireher <nireher-@student.42madrid.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 05:04:09 by nireher-          #+#    #+#             */
-/*   Updated: 2023/12/07 23:29:43 by nireher          ###   ########.fr       */
+/*   Updated: 2023/12/11 01:21:51 by nireher          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_read_and_pass(int fd, char *line)
+char	*ft_read_and_pass(int fd)
 {
 	char			*buf;
 	int				nbytes;
@@ -21,26 +21,14 @@ char	*ft_read_and_pass(int fd, char *line)
 	if (!buf)
 		return (NULL);
 	nbytes = read(fd, buf, BUFFER_SIZE + 1);
+	//printf("%d\n", nbytes);
 	if (nbytes == 0)
 	{
 		free(buf);
 		return (NULL);
 	}
-	buf[nbytes] = '\0';
-	line = ft_strjoin(line, buf);
-	if (!line)
-		return (NULL);
-	if (ft_strchr(line, '\n'))
-		return (line);
-	else
-	{
-		while (!(ft_strchr(line, '\n')))
-		{
-			line = ft_read_and_pass(fd, line);
-		}
-	}
-	free(buf);
-	return (line);
+	buf[nbytes - 1] = '\0';
+	return (buf);
 }
 
 char	*get_next_line(int fd)
@@ -50,10 +38,8 @@ char	*get_next_line(int fd)
 
 	if (fd == -1 || BUFFER_SIZE <= 0)
 		return NULL;
-	line = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!line)
-		return (NULL);
-	saved = ft_read_and_pass(fd, line);
+	saved = ft_read_and_pass(fd);
+	//if (!(ft_strchr(saved, '\n')))
 	return (saved);
 }
 
