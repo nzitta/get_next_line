@@ -6,7 +6,7 @@
 /*   By: nireher <nireher-@student.42madrid.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 05:00:53 by nireher-          #+#    #+#             */
-/*   Updated: 2023/12/11 01:22:37 by nireher          ###   ########.fr       */
+/*   Updated: 2023/12/11 02:23:58 by nireher          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 6
+# define BUFFER_SIZE 4
 
 # endif
 

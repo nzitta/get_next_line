@@ -6,7 +6,7 @@
 /*   By: nireher <nireher-@student.42madrid.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 05:04:09 by nireher-          #+#    #+#             */
-/*   Updated: 2023/12/11 01:21:51 by nireher          ###   ########.fr       */
+/*   Updated: 2023/12/11 03:19:01 by nireher          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char	*ft_read_and_pass(int fd)
 	buf = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buf)
 		return (NULL);
+	nbytes = 1; //nbytes should be initialized as 1 since 0 means EOF and does not enter the loop (i think¿?)
 	nbytes = read(fd, buf, BUFFER_SIZE + 1);
-	//printf("%d\n", nbytes);
-	if (nbytes == 0)
+	if (nbytes == -1) // error
 	{
 		free(buf);
 		return (NULL);
@@ -34,12 +34,10 @@ char	*ft_read_and_pass(int fd)
 char	*get_next_line(int fd)
 {
 	static char	*saved;
-	char 		*line;
 
 	if (fd == -1 || BUFFER_SIZE <= 0)
 		return NULL;
-	saved = ft_read_and_pass(fd);
-	//if (!(ft_strchr(saved, '\n')))
+	saved = ft_read_and_pass(fd); // Does saved[fd] include \n?
 	return (saved);
 }
 
